@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family: "Share Tech Mono", sans-serif;
     height: 100%;
     min-height: 100lvh;
 }
@@ -34,23 +34,31 @@ body {
     box-shadow: 0px 16px 20px rgba(0, 0, 0, 0.784);
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 30px;
     gap: 20px;
+    margin: 20px;
 }
 
 .result-container {
     background-color: #d5e2e2;
-    border: 5px solid black;
-    text-align: end;
-    padding: 10px;
+    border: 15px inset rgb(220, 218, 218);
+    padding: 10px 5px 0px;
     flex: 1;
+}
+
+.result-container .result-text {
+    width: 100%;
+    direction: rtl;
+    text-align: right;
+    overflow-x: hidden;
+    font-size: 4.6em;
 }
 
 .buttons-container {
     display: flex;
     flex-direction: column;
     flex: 5;
-    background-color: black;
+    /* background-color: black; */
     padding: 5px;
     border-radius: 10px;
 }
@@ -64,17 +72,17 @@ body {
 
 .buttons-container .row button {
     flex: 1 1 25%;
-    /* box-shadow: 0px 5px 10px black; */
-    border: 3px solid #000000;
-    border-radius: 10px;
-    /* width: 100%;
-    max-width: 102px; */
+    border: 10px outset #cfcdcd;
+    padding: 5px;
+    font-size: 1.5em;
+    font-weight: 500;
+    font-family: "Share Tech Mono", sans-serif;
 }
 
-.buttons-container .row button:last-child {
+.buttons-container .row button:active {
+    transform: scale(0.9);
 }
 
 .buttons-container .row button.wide-btn {
     flex: 2 1 50%;
-    /* max-width: 214px; */
 }
