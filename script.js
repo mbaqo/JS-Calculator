@@ -44,7 +44,7 @@ function truncateNumber(number) {
         if (toReturn.includes(".")) {
             const [int, decimal] = toReturn.split(".");
             const maxDecimals = MAX_LENGTH - int.length - 1;
-            if (maxDecimals >= 0) {
+            if (maxDecimals >= 0 && maxDecimals < MAX_LENGTH) {
                 toReturn = number.toFixed(maxDecimals);
             } else {
                 toReturn = number.toExponential(2);
@@ -73,12 +73,25 @@ function inputDigit() {
                 return;
             }
             if (a && selectedOperator && b.length < MAX_LENGTH) {
-                b += digit.textContent;
+                if (digit.textContent === "+/-") {
+                    b.includes('-') ? b = b.substring(1) : b = "-" + b;
+                } else {
+                    b += digit.textContent;
+                }
                 text.textContent = b;
             } else if (a.length < MAX_LENGTH && !selectedOperator) {
-                a += digit.textContent;
+                if (digit.textContent === "+/-") {
+                    a.includes('-') ? a = a.substring(1) : a = "-" + a;
+                } else {
+                    a += digit.textContent;
+                }
                 text.textContent = a;
-
+            }
+            if (selectedOperator === "o") {
+                a = digit.textContent;
+                b = "";
+                text.textContent = a;
+                selectedOperator = "";
             }
             console.log(`a: ${a} , b: ${b}, operator: ${selectedOperator}`);
         });
@@ -107,6 +120,7 @@ function inputDigit() {
             const result = operate(Number(a), Number(b), selectedOperator);
             console.log(result);
             text.textContent = result;
+            selectedOperator = "o";
             a = result;
             b = "";
         }
@@ -117,7 +131,7 @@ function inputDigit() {
         a = "";
         b = "";
         selectedOperator = "";
-        text.textContent = "";
+        text.textContent = "0";
     })
 
     const deleteBtn = document.querySelector("#delete-btn");
