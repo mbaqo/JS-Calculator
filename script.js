@@ -13,6 +13,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        return "undefined";
+    }
     return a / b;
 }
 
@@ -36,25 +39,22 @@ function operate(a, b, operator) {
 }
 
 function truncateNumber(number) {
-    str = number.toString();
     let toReturn = "" + number;
-    if (str.length > MAX_LENGTH) {
-        if (str.includes(".")) {
-            const [int, decimal] = str.split(".");
+    if (toReturn.length > MAX_LENGTH) {
+        if (toReturn.includes(".")) {
+            const [int, decimal] = toReturn.split(".");
             const maxDecimals = MAX_LENGTH - int.length - 1;
-            if (maxDecimals >= 0 && decimal.length <= maxDecimals) {
+            if (maxDecimals >= 0) {
                 toReturn = number.toFixed(maxDecimals);
             } else {
                 toReturn = number.toExponential(2);
             }
         } else {
             toReturn = number.toExponential(2);
-            // const expStr = number.toExponential(MAX_LENGTH - 5);
-            // return expStr.length <= MAX_LENGTH ? expStr : number.toExponential(MAX_LENGTH - 6)
         }
     }
     if (toReturn.length > MAX_LENGTH) {
-        return "ERROR"
+        return number.toExponential(2);
     }
     return toReturn;
 }
@@ -90,8 +90,10 @@ function inputDigit() {
                 b = "";
                 console.log(`a: ${a} , b: ${b}, operator: ${selectedOperator}`);
             }
-            selectedOperator = operator.textContent;
-            console.log(operator.textContent);
+            if (a) {
+                selectedOperator = operator.textContent;
+                console.log(operator.textContent);
+            }
         })
     });
 
@@ -105,6 +107,25 @@ function inputDigit() {
             b = "";
         }
     });
+
+    const clearBtn = document.querySelector("#clear-btn");
+    clearBtn.addEventListener("click", (e) => {
+        a = "";
+        b = "";
+        selectedOperator = "";
+        text.textContent = "";
+    })
+
+    const deleteBtn = document.querySelector("#delete-btn");
+    deleteBtn.addEventListener("click", (e) => {
+        if (a && selectedOperator) {
+            b = b.substring(0, b.length - 1);
+            text.textContent = text.textContent.substring(0, text.textContent.length - 1);
+        } else {
+            a = a.substring(0, a.length -1);
+            text.textContent = text.textContent.substring(0, text.textContent.length - 1);
+        }
+    })
 }
 function isTextFull() {
     const text = document.querySelector(".result-text").textContent;
