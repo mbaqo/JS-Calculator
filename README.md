@@ -1,1 +1,1 @@
-A browser implementation of a calculator for simple operations. This project was made with html along with vanilla javascript and css.
+A browser implementation of a calculator for simple operations. This project was made from scratch using html along with vanilla javascript and css.
