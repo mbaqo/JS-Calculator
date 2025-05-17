@@ -1,3 +1,5 @@
+const MAX_LENGTH = 9;
+
 function add(a, b) {
     return a + b;
 }
@@ -15,16 +17,46 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
+    let toReturn = 0;
     switch (operator) {
         case "+":
-            return add(a, b);
+            toReturn = add(a, b);
+            break;
         case "-":
-            return subtract(a, b);
+            toReturn = subtract(a, b);
+            break;
         case "X":
-            return multiply(a, b);
+            toReturn = multiply(a, b);
+            break;
         case "/":
-            return divide(a, b);
+            toReturn = divide(a, b);
+            break;
     }
+    return truncateNumber(toReturn);
+}
+
+function truncateNumber(number) {
+    str = number.toString();
+    let toReturn = "" + number;
+    if (str.length > MAX_LENGTH) {
+        if (str.includes(".")) {
+            const [int, decimal] = str.split(".");
+            const maxDecimals = MAX_LENGTH - int.length - 1;
+            if (maxDecimals >= 0 && decimal.length <= maxDecimals) {
+                toReturn = number.toFixed(maxDecimals);
+            } else {
+                toReturn = number.toExponential(2);
+            }
+        } else {
+            toReturn = number.toExponential(2);
+            // const expStr = number.toExponential(MAX_LENGTH - 5);
+            // return expStr.length <= MAX_LENGTH ? expStr : number.toExponential(MAX_LENGTH - 6)
+        }
+    }
+    if (toReturn.length > MAX_LENGTH) {
+        return "ERROR"
+    }
+    return toReturn;
 }
 
 function inputDigit() {
@@ -36,16 +68,15 @@ function inputDigit() {
     let selectedOperator = "";
     digits.forEach((digit) => {
         digit.addEventListener("click", (e) => {
-            if (!isTextFull()) {
-                if (a && selectedOperator) {
-                    b += digit.textContent;
-                    text.textContent = b;
-                } else {
-                    a += digit.textContent;
-                    text.textContent = a;
-                }
-                console.log(text);
+            if (a && selectedOperator && b.length < MAX_LENGTH) {
+                b += digit.textContent;
+                text.textContent = b;
+            } else if (a.length < MAX_LENGTH && !selectedOperator) {
+                a += digit.textContent;
+                text.textContent = a;
+
             }
+            console.log(`a: ${a} , b: ${b}, operator: ${selectedOperator}`);
         });
     });
 
@@ -57,6 +88,7 @@ function inputDigit() {
                 text.textContent = result;
                 a = result;
                 b = "";
+                console.log(`a: ${a} , b: ${b}, operator: ${selectedOperator}`);
             }
             selectedOperator = operator.textContent;
             console.log(operator.textContent);
@@ -76,7 +108,7 @@ function inputDigit() {
 }
 function isTextFull() {
     const text = document.querySelector(".result-text").textContent;
-    if (text.length >= 9) {
+    if (text.length >= MAX_LENGTH) {
         return true;
     }
     return false;

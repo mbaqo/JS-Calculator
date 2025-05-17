@@ -50,7 +50,7 @@ body {
     width: 100%;
     direction: rtl;
     text-align: right;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     font-size: 4.6em;
     text-shadow: 1px 2px 5px rgba(15, 14, 14, 0.426);
 }
