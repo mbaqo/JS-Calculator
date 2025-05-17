@@ -71,18 +71,36 @@ body {
 }
 
 .buttons-container .row button {
+    font-family: "Share Tech Mono", sans-serif;
     flex: 1 1 25%;
     border: 10px outset #cfcdcd;
     padding: 5px;
-    font-size: 1.5em;
-    font-weight: 500;
-    font-family: "Share Tech Mono", sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    background-color: #38393f;
+    border: 10px outset #4d4e57;
+    color: #fff;
 }
 
 .buttons-container .row button:active {
     transform: scale(0.9);
 }
 
+.buttons-container .row #clear-btn,#delete-btn {
+    background-color: #922828;
+    border: 10px outset #9a3434;
+    color: #fff;
+}
+
+.buttons-container .row .operator-btn {
+    background-color: #cd8013;
+    border: 10px outset #e3972d;
+    color: #fff;
+}
+
 .buttons-container .row button.wide-btn {
     flex: 2 1 50%;
+    background-color: #396d2f;
+    border: 10px outset #5c7956;
+    color: #fff;
 }
