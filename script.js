@@ -68,6 +68,10 @@ function inputDigit() {
     let selectedOperator = "";
     digits.forEach((digit) => {
         digit.addEventListener("click", (e) => {
+            // Prevents the user from typing "." twice
+            if (digit.textContent === "." && text.textContent.includes(".")) {
+                return;
+            }
             if (a && selectedOperator && b.length < MAX_LENGTH) {
                 b += digit.textContent;
                 text.textContent = b;
@@ -122,7 +126,7 @@ function inputDigit() {
             b = b.substring(0, b.length - 1);
             text.textContent = text.textContent.substring(0, text.textContent.length - 1);
         } else {
-            a = a.substring(0, a.length -1);
+            a = a.substring(0, a.length - 1);
             text.textContent = text.textContent.substring(0, text.textContent.length - 1);
         }
     })

@@ -48,7 +48,7 @@ body {
 
 .result-container .result-text {
     width: 100%;
-    direction: rtl;
+    direction: ltr;
     text-align: right;
     /* overflow-x: hidden; */
     font-size: 4.6em;
